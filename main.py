@@ -3,7 +3,7 @@ pygame.init()
 size = width, height = 600, 800
 screen = pygame.display.set_mode(size)
 running = True
-screen.fill((0, 0, 255))
+screen.fill((0, 0, 0))
 
 
 class Board:
@@ -27,7 +27,7 @@ class Board:
             return False
 
     def render(self, screen):
-        screen.fill((0, 0, 255))
+        screen.fill((0, 0, 0))
         count = 0
         for i in range(0, self.width * self.rect[0], self.rect[0]):
             count_1 = 0
