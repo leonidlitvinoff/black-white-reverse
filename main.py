@@ -18,6 +18,8 @@ class Board:
         self.rect = rect
 
     def can(self, x, y):
+        if x < 0 or y < 0 or x + 1 > self.width or y + 1 > self.height:
+            return False
         try:
             m = self.board[y][x]
             return True
@@ -47,11 +49,12 @@ class Board:
         return 0
 
     def mouse_click(self, ev):
-        for i in range(self.width):
-            self.board[(ev.pos[1] - self.pos[1]) // self.rect[1]][i] = self.revrs(self.board[(ev.pos[1] - self.pos[1]) // self.rect[1]][i])
-        for i in range(self.height):
-            self.board[i][(ev.pos[0] - self.pos[0]) // self.rect[0]] = self.revrs(self.board[i][(ev.pos[0] - self.pos[0]) // self.rect[0]])
-        self.board[(ev.pos[1] - self.pos[1]) // self.rect[1]][(ev.pos[0] - self.pos[0]) // self.rect[0]] = self.revrs(self.board[(ev.pos[1] - self.pos[1]) // self.rect[1]][(ev.pos[0] - self.pos[0]) // self.rect[0]])
+        if self.can((ev.pos[0] - self.pos[0]) // self.rect[0], (ev.pos[1] - self.pos[1]) // self.rect[1]):
+            for i in range(self.width):
+                self.board[(ev.pos[1] - self.pos[1]) // self.rect[1]][i] = self.revrs(self.board[(ev.pos[1] - self.pos[1]) // self.rect[1]][i])
+            for i in range(self.height):
+                self.board[i][(ev.pos[0] - self.pos[0]) // self.rect[0]] = self.revrs(self.board[i][(ev.pos[0] - self.pos[0]) // self.rect[0]])
+            self.board[(ev.pos[1] - self.pos[1]) // self.rect[1]][(ev.pos[0] - self.pos[0]) // self.rect[0]] = self.revrs(self.board[(ev.pos[1] - self.pos[1]) // self.rect[1]][(ev.pos[0] - self.pos[0]) // self.rect[0]])
 
 
 boarder = Board(5, 5, (50, 50), (70, 40))
